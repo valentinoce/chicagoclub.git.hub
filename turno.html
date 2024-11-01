@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="formulario.css">
+    <link rel="stylesheet" href="turno.css">
+    <title>Sistema de Turnos</title>
+
+</head>
+<body>
+    <h1>Sistema de Turnos</h1>
+    <div class="container">
+        <div class="mes">
+            <h2>Enero</h2>
+            <div id="dias-enero"></div> <!-- Aquí se agregarán los días de enero -->
+        </div>
+
+        <div class="mes">
+            <h2>Febrero</h2>
+            <div id="dias-febrero"></div> <!-- Aquí se agregarán los días de febrero -->
+        </div>
+        <div class="mes">
+            <h2>Marzo</h2>
+            <div id="dias-marzo"></div> <!-- Aquí se agregarán los días de febrero -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2 id="titulo-modal">Tu día es: </h2>
+            <h3>Elija su hora:</h3>
+            <div id="horarios-modal"></div>
+        </div>
+    </div>
+
+    <script>
+        // Función para crear los días del mes
+        function crearDias(mes, totalDias, elementoId) {
+            const diasContainer = document.getElementById(elementoId);
+            for (let dia = 1; dia <= totalDias; dia++) {
+                const diaElement = document.createElement('div');
+                diaElement.className = 'dia';
+                diaElement.innerText = dia;
+                diaElement.onclick = () => abrirModal(dia, mes); // Asignar evento al hacer clic
+                diasContainer.appendChild(diaElement);
+            }
+        }
+
+        // Crear los días para enero y febrero
+        crearDias('Enero', 31, 'dias-enero');
+        crearDias('Febrero', 28, 'dias-febrero');
+        crearDias('Marzo', 31, 'dias-marzo');
+
+
+        function abrirModal(dia, mes) {
+            document.getElementById('titulo-modal').innerText = `Tu día es: ${dia} de ${mes}`;
+            let horariosHTML = '';
+
+            // Horarios disponibles según el mes
+            if (mes === 'Enero') {
+                horariosHTML += `
+                    <button class="horario" onclick="seleccionarHorario('09:00')">09:00</button>
+                    <button class="horario" onclick="seleccionarHorario('10:00')">10:00</button>
+                    <button class="horario" onclick="seleccionarHorario('11:00')">11:00</button>
+                    <button class="horario" onclick="seleccionarHorario('12:00')">12:00</button>
+                    <button class="horario" onclick="seleccionarHorario('13:00')">13:00</button>
+                    <button class="horario" onclick="seleccionarHorario('14:00')">14:00</button>
+                `;
+            } else if (mes === 'Febrero') {
+                horariosHTML += `
+                    <button class="horario" onclick="seleccionarHorario('14:00')">14:00</button>
+                    <button class="horario" onclick="seleccionarHorario('15:00')">15:00</button>
+                    <button class="horario" onclick="seleccionarHorario('16:00')">16:00</button>
+                    <button class="horario" onclick="seleccionarHorario('17:00')">17:00</button>
+                    <button class="horario" onclick="seleccionarHorario('19:00')">18:00</button>
+                    <button class="horario" onclick="seleccionarHorario('20:00')">18:00</button>
+                    <button class="horario" onclick="seleccionarHorario('21:00')">18:00</button>
+
+                `;
+            }
+            else if (mes === 'Marzo') {
+                horariosHTML += `
+                    <button class="horario" onclick="seleccionarHorario('14:00')">14:00</button>
+                    <button class="horario" onclick="seleccionarHorario('15:00')">15:00</button>
+                    <button class="horario" onclick="seleccionarHorario('16:00')">16:00</button>
+                    <button class="horario" onclick="seleccionarHorario('17:00')">17:00</button>
+                    <button class="horario" onclick="seleccionarHorario('19:00')">18:00</button>
+                    <button class="horario" onclick="seleccionarHorario('20:00')">18:00</button>
+                    <button class="horario" onclick="seleccionarHorario('21:00')">18:00</button>
+
+                `;
+            }
+
+            document.getElementById('horarios-modal').innerHTML = horariosHTML; // Mostrar los horarios en el modal
+            document.getElementById('myModal').style.display = "block"; // Abrir el modal
+        }
+
+        function cerrarModal() {
+            document.getElementById('myModal').style.display = "none"; // Cerrar el modal
+        }
+
+        function seleccionarHorario(hora) {
+            alert(`Has seleccionado el horario: ${hora}`); // Ventana emergente con el horario seleccionado
+            cerrarModal(); // Cerrar el modal después de la selección
+        }
+    </script>
+</body>
+</html>
